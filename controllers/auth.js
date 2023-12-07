@@ -20,7 +20,6 @@ export const signUp = async (req, res, next) => {
 
         res.cookie("access_token", token, {
             httpOnly: true,
-            domain: 'https://socialsphere-z2m4.onrender.com',
             secure: true,
             sameSite: 'none'
         }).status(200).json(otherData)
@@ -46,7 +45,6 @@ export const signIn = async (req, res, next) => {
 
         res.cookie("access_token", token, {
             httpOnly: true,
-            domain: 'https://socialsphere-z2m4.onrender.com',
             secure: true,
             sameSite: 'none'
         }).status(200).json(otherData)
