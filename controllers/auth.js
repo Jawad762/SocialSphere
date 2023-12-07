@@ -1,7 +1,6 @@
 import User from "../models/User.js"
 import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken"
-import { handleError } from "../error.js"
 
 export const signUp = async (req, res, next) => {
     try {
@@ -21,6 +20,8 @@ export const signUp = async (req, res, next) => {
 
         res.cookie("access_token", token, {
             httpOnly: true,
+            domain: 'https://social-sphere-server.onrender.com',
+            secure: true
         }).status(200).json(otherData)
 
     } catch (error) {
@@ -44,6 +45,8 @@ export const signIn = async (req, res, next) => {
 
         res.cookie("access_token", token, {
             httpOnly: true,
+            domain: 'https://social-sphere-server.onrender.com',
+            secure: true
         }).status(200).json(otherData)
 
     } catch (error) {
