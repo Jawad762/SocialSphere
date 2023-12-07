@@ -21,17 +21,32 @@ db.on('err', () => {
 })
 
 const app = express()
-app.use(cors());
+app.use(cors({
+    origin: 'https://socialsphere-z2m4.onrender.com',
+    credentials: true,
+}));
+
 app.use(cookieParser())
 app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/tweet', tweetRoutes)
 app.use('/api/comment', commentRoutes)
-app.use('/', (req, res) => {
-    res.setHeader('Access-Control-Allow-Credentials', true)
-    res.send('Server is running')
-})
+
+app.use((req, res, next) => {
+    const allowedOrigins = ['https://socialsphere-z2m4.onrender.com'];
+    const origin = req.headers.origin;
+
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', true);
+
+    next();
+});
 
 app.listen(8000, () => {
     console.log('server listening on port 8000')
