@@ -25,7 +25,9 @@ export const updateUser = async (req, res, next) => {
     try {
         const isUsernameTaken = await User.findOne({ username: req.body.username })
         
-        if (isUsernameTaken && req.params.id !== isUsernameTaken._id) res.status(400).json('Username already taken')
+        if (isUsernameTaken && req.params.id !== isUsernameTaken._id) res.status(400).json(`Username already taken, your id: ${req.params.id}   his id: ${isUsernameTaken._id}`)
+        console.log(isUsernameTaken._id)
+        console.log(req.params.id)
 
         const user = await User.findByIdAndUpdate(req.params.id, {
             $set: req.body
