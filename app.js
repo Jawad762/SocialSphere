@@ -28,6 +28,10 @@ app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/tweet', tweetRoutes)
 app.use('/api/comment', commentRoutes)
+app.use('/', (req, res) => {
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    res.send('Server is running')
+})
 
 app.listen(8000, () => {
     console.log('server listening on port 8000')
