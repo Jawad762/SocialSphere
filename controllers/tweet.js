@@ -58,15 +58,19 @@ export const getTimelineTweets = async (req, res, next) => {
 
         const followingTweets = await Promise.all(
             user.following.map(id => {
-            return Tweet.find({ userId: id }).sort({createdAt: -1})
-        })
-        )
+                return Tweet.find({ userId: id })
+            })
+        );
 
-        res.status(200).json([].concat(...followingTweets))
+        const allTweets = [].concat(...followingTweets);
+
+        const sortedTweets = allTweets.sort((a, b) => b.createdAt - a.createdAt);
+
+        res.status(200).json(sortedTweets);
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
 
 export const getUserTweets = async (req, res, next) => {
     try {
