@@ -97,7 +97,7 @@ export const getExploreTweets = async (req, res, next) => {
 export const getLikedTweets = async (req, res, next) => {
     try {
         const { userId } = req.params
-        const likedTweets = await Tweet.find({ userId })
+        const likedTweets = await Tweet.find({ userId }).sort({ createdAt: -1 })
         res.status(200).json(likedTweets)
     } catch (error) {
         res.status(500).json({ error: error.message })
