@@ -11,7 +11,7 @@ router.get('/all', getExploreTweets)
 router.get('/:id', getTweet)
 
 // Find timeline tweets
-router.get('/timeline/:id', verifyToken, getTimelineTweets)
+router.get('/timeline/:id', getTimelineTweets)
 
 // Find user tweets
 router.get('/userTweets/:id', getUserTweets)
@@ -20,10 +20,10 @@ router.get('/userTweets/:id', getUserTweets)
 router.get('/likedTweets/:userId', getLikedTweets)
 
 // Create tweet
-router.post('/create', verifyToken, createTweet)
+router.post('/create', createTweet)
 
 // Delete tweet
-router.delete('/delete/:id', verifyToken, deleteTweet)
+router.delete('/delete/:id', deleteTweet)
 
 // Like or Unlike tweet
 router.put('/likeOrUnlike/:id', likeOrUnlikeTweet)

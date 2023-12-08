@@ -17,6 +17,6 @@ router.post('/create', createComment)
 router.put('/likeOrUnlike/:id', likeOrUnlike)
 
 // delete comment
-router.delete('/delete/:id', verifyToken, deleteComment)
+router.delete('/delete/:id', deleteComment)
 
 export default router

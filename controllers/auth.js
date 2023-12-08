@@ -18,9 +18,7 @@ export const signUp = async (req, res, next) => {
 
         const { password, ...otherData } = newUser._doc
 
-        localStorage.setItem('access_token', token)
-
-        res.status(200).json(otherData)
+        res.status(200).json({...otherData, token})
 
     } catch (error) {
         next(error)
@@ -41,16 +39,9 @@ export const signIn = async (req, res, next) => {
         
         const token = jwt.sign({ id: user._id }, process.env.JWT)
 
-        localStorage.setItem('access_token', token)
-
-        res.status(200).json(otherData)
+        res.status(200).json({...otherData, token})
 
     } catch (error) {
         next(error)
     }
-}
-
-export const logout = async (req, res) => {
-    localStorage.removeItem('access_token')
-    res.status(200).json({message: 'Logout successful'})
 }

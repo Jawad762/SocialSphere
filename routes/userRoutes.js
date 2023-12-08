@@ -1,6 +1,5 @@
 import express from 'express'
 import { deleteUser, getUser, updateUser, followOrUnfollowUser, getUserFollowers, getUserFollowing, getUsers, getUserLikes } from '../controllers/user.js'
-import { verifyToken } from '../verifyToken.js'
 
 const router = express.Router()
 
@@ -20,12 +19,12 @@ router.get('/following/:id', getUserFollowing)
 router.get('/likes/:id', getUserLikes)
 
 // update user
-router.put('/:id', verifyToken, updateUser)
+router.put('/:id', updateUser)
 
 // delete user
-router.delete('/:id', verifyToken, deleteUser)
+router.delete('/:id', deleteUser)
 
 // follow or unfollow user
-router.put('/followOrUnfollow/:id', verifyToken, followOrUnfollowUser)
+router.put('/followOrUnfollow/:id', followOrUnfollowUser)
 
 export default router
