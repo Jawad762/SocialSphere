@@ -18,11 +18,9 @@ export const signUp = async (req, res, next) => {
 
         const { password, ...otherData } = newUser._doc
 
-        res.cookie("access_token", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none'
-        }).status(200).json(otherData)
+        localStorage.setItem('access_token', token)
+
+        res.status(200).json(otherData)
 
     } catch (error) {
         next(error)
@@ -43,11 +41,9 @@ export const signIn = async (req, res, next) => {
         
         const token = jwt.sign({ id: user._id }, process.env.JWT)
 
-        res.cookie("access_token", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none'
-        }).status(200).json(otherData)
+        localStorage.setItem('access_token', token)
+
+        res.status(200).json(otherData)
 
     } catch (error) {
         next(error)
@@ -55,6 +51,6 @@ export const signIn = async (req, res, next) => {
 }
 
 export const logout = async (req, res) => {
-    res.clearCookie('access_token')
+    localStorage.removeItem('access_token')
     res.status(200).json({message: 'Logout successful'})
 }
