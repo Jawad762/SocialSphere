@@ -14,7 +14,7 @@ export const signUp = async (req, res, next) => {
 
         await newUser.save()
 
-        const token = jwt.sign({id: newUser._id}, process.env.JWT)
+        const token = jwt.sign({id: newUser._id}, process.env.JWT, { expiresIn: '10m' })
 
         const { password, ...otherData } = newUser._doc
 
@@ -37,7 +37,7 @@ export const signIn = async (req, res, next) => {
 
         const {  password, ...otherData  } = user._doc
         
-        const token = jwt.sign({ id: user._id }, process.env.JWT)
+        const token = jwt.sign({ id: user._id }, process.env.JWT, { expiresIn: '10m' })
 
         res.status(200).json({...otherData, token})
 
