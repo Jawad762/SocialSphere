@@ -22,7 +22,7 @@ db.on('err', () => {
 
 const app = express()
 app.use(cors({
-    origin: 'https://socialsphere-z2m4.onrender.com',
+    origin: '*',
     credentials: true,
 }));
 
@@ -34,17 +34,10 @@ app.use('/api/tweet', tweetRoutes)
 app.use('/api/comment', commentRoutes)
 
 app.use((req, res, next) => {
-    const allowedOrigins = ['https://socialsphere-z2m4.onrender.com'];
-    const origin = req.headers.origin;
-
-    if (allowedOrigins.includes(origin)) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
- 
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Access-Control-Allow-Credentials', true);
-
     next();
 });
 
