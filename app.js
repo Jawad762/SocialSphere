@@ -22,7 +22,7 @@ db.on('err', () => {
 
 const app = express()
 app.use(cors({
-    origin: 'https://socialsphere-z2m4.onrender.com',
+    origin: '*',
     credentials: true,
 }));
 
