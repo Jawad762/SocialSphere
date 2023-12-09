@@ -21,7 +21,10 @@ db.on('err', () => {
 })
 
 const app = express()
-app.use(cors())
+app.use(cors({
+    origin: ['https://socialsphere-z2m4.onrender.com', 'http://localhost:5173/'],
+    credentials: true,
+}));
 
 app.use(cookieParser())
 app.use(express.json())
