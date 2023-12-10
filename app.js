@@ -22,7 +22,7 @@ db.on('err', () => {
 
 const app = express()
 app.use(cors({
-    origin: ['https://socialsphere-z2m4.onrender.com', 'http://localhost:5173/'],
+    origin: ['https://socialsphere-z2m4.onrender.com', 'http://localhost:5173'],
     credentials: true,
 }));
 
@@ -34,7 +34,7 @@ app.use('/api/tweet', tweetRoutes)
 app.use('/api/comment', commentRoutes)
 
 app.use((req, res, next) => {
-    const allowedOrigins = ['https://socialsphere-z2m4.onrender.com', 'http://localhost:5173/'];
+    const allowedOrigins = ['https://socialsphere-z2m4.onrender.com', 'http://localhost:5173'];
     const origin = req.headers.origin;
 
     if (allowedOrigins.includes(origin)) {
