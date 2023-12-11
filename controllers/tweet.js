@@ -1,3 +1,4 @@
+import Notif from '../models/Notif.js'
 import Tweet from '../models/Tweet.js'
 import User from '../models/User.js'
 
@@ -24,6 +25,7 @@ export const likeOrUnlikeTweet = async (req, res, next) => {
     try {
         const tweet = await Tweet.findById(req.params.id)
         const likerId = req.body.id
+        const liker = await User.findById(likerId)
 
         if (tweet.likes.includes(likerId)) {
             tweet.likes.pull(likerId)
@@ -34,6 +36,7 @@ export const likeOrUnlikeTweet = async (req, res, next) => {
         else {
             tweet.likes.push(likerId)
             await tweet.save()
+            new Notif({ userId: tweet.userId, value: `${liker.username} liked your post.`})
             res.status(200).send('Liked tweet.')
         } 
 

@@ -1,4 +1,7 @@
 import Comment from '../models/Comment.js'
+import Notif from '../models/Notif.js'
+import Tweet from '../models/Tweet.js'
+import User from '../models/User.js'
 
 export const getUserComments = async (req, res, next) => {
     try {
@@ -28,6 +31,9 @@ export const createComment = async (req, res, next) => {
     try {
         const newComment = new Comment(req.body)
         await newComment.save()
+        const tweet = await Tweet.findById(newComment.tweetId)
+        const user = await User.findById(tweet.userId)
+        new Notif({ userId: user._id, value: `${user.username} commented under your post.` })
         res.status(200).json(newComment)
     } catch (error) {
         res.status(400).json({ error: error.message })

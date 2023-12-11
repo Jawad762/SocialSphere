@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Tweet from "../models/Tweet.js";
+import Notif from "../models/Notif.js";
 
 export const getUser = async (req, res, next) => {
     try {
@@ -63,8 +64,9 @@ export const followOrUnfollowUser = async (req, res, next) => {
             followed.followers.pull(req.body.id);
             await Promise.all([
                 follower.save(),
-                followed.save()
+                followed.save(),
             ]);
+            x
             res.status(200).send('User Unfollowed.')
         }
 
@@ -73,10 +75,12 @@ export const followOrUnfollowUser = async (req, res, next) => {
             followed.followers.push(req.body.id);
             await Promise.all([
                 follower.save(),
-                followed.save()
+                followed.save(),
+                new Notif({ userId: followed._id, value: `${follower.username} started following you.` })
             ]);
             res.status(200).send('User followed.')
         }
+
 
     } catch (error) {
         next(error);
