@@ -5,8 +5,7 @@ const notifSchema = new mongoose.Schema({
     sourceId: { type: String, required: true },
     type: { type: String, required: true },
     value: { type: String, required: true },
-    tweetId: { type:String },
-    commentId: { type: String }
-})
+    tweetId: { type: String }
+}, { timestamps: true })
 
 export default mongoose.model('Notif', notifSchema)
