@@ -33,7 +33,8 @@ export const createComment = async (req, res, next) => {
         await newComment.save()
         const tweet = await Tweet.findById(newComment.tweetId)
         const user = await User.findById(tweet.userId)
-        new Notif({ userId: user._id, value: `${user.username} commented under your post.` })
+        const notification = new Notif({ userId: user._id, value: `${user.username} commented under your post.` })
+        await notification.save()
         res.status(200).json(newComment)
     } catch (error) {
         res.status(400).json({ error: error.message })
