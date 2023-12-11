@@ -1,5 +1,5 @@
-import Notif from '../models/Notif';
-import Tweet from '../models/Tweet';
+import Notif from '../models/Notif.js';
+import Tweet from '../models/Tweet.js';
 
 export const getNotifications = async (req, res, next) => {
   try {
