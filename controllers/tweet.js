@@ -36,8 +36,10 @@ export const likeOrUnlikeTweet = async (req, res, next) => {
         else {
             tweet.likes.push(likerId)
             await tweet.save()
-            const notification = new Notif({ userId: tweet.userId, value: `${liker.username} liked your post.`, sourceId: likerId, type: 'like', tweetId: tweet._id})
-            await notification.save()
+            if (tweet.userId !== likerId) {
+                const notification = new Notif({ userId: tweet.userId, value: `${liker.username} liked your post.`, sourceId: likerId, type: 'like', tweetId: tweet._id})
+                await notification.save()
+            }
             res.status(200).send('Liked tweet.')
         } 
 

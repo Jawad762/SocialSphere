@@ -34,8 +34,10 @@ export const createComment = async (req, res, next) => {
         const commentUser = await User.findById(newComment.userId)
         const tweet = await Tweet.findById(newComment.tweetId)
         const tweetUser = await User.findById(tweet.userId)
-        const notification = new Notif({ userId: tweetUser._id, value: `${commentUser.username} commented under your post.`, sourceId: commentUser._id, type: 'comment', tweetId: newComment.tweetId })
-        await notification.save()
+        if (newComment.userId !== tweet.userId) {
+            const notification = new Notif({ userId: tweetUser._id, value: `${commentUser.username} commented under your post.`, sourceId: commentUser._id, type: 'comment', tweetId: newComment.tweetId })
+            await notification.save()
+        }
         res.status(200).json(newComment)
     } catch (error) {
         res.status(400).json({ error: error.message })
@@ -67,8 +69,10 @@ export const likeOrUnlike= async (req, res, next) => {
         else {
             comment.likes.push(likerId)
             await comment.save()
-            const notification = new Notif({ userId: comment.userId ,value: `${liker.username} liked your comment.`, sourceId: likerId, type: 'like', tweetId: comment.tweetId })
-            await notification.save()
+            if (comment.userId !== likerId) {
+                const notification = new Notif({ userId: comment.userId ,value: `${liker.username} liked your comment.`, sourceId: likerId, type: 'like', tweetId: comment.tweetId })
+                await notification.save()
+            }
             res.status(200).json('Liked tweet.')
         }
 
