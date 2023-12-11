@@ -54,7 +54,9 @@ export const deleteComment = async (req, res, next) => {
 export const likeOrUnlike= async (req, res, next) => {
     try {
         const comment = await Comment.findById(req.params.id)
+        const commentUser = await User.findById(comment.userId)
         const likerId = req.body.id
+        const liker = await User.findById(likerId)
     
         if (comment.likes.includes(likerId)) {
             comment.likes.pull(likerId)
@@ -65,6 +67,8 @@ export const likeOrUnlike= async (req, res, next) => {
         else {
             comment.likes.push(likerId)
             await comment.save()
+            const notification = new Notif({ userId: commentUser._id, value: `${liker.username} liked your comment.` })
+            await notification.save()
             res.status(200).json('Liked tweet.')
         }
 
