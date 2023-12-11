@@ -16,7 +16,9 @@ export const getNotifications = async (req, res, next) => {
           return notif;
         }
       }
-      return null;
+      else if (notif.type === 'follow') return notif
+      
+      else return null;
     });
 
     const notifications = await Promise.all(notificationPromises);
