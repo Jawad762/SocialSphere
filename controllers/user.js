@@ -72,7 +72,7 @@ export const followOrUnfollowUser = async (req, res, next) => {
         else if (!follower.following.includes(req.params.id)) {
             follower.following.push(req.params.id);
             followed.followers.push(req.body.id);
-            const notification = new Notif({ userId: followed._id, value: `${follower.username} started following you.` })
+            const notification = new Notif({ userId: followed._id, value: `${follower.username} started following you.`, sourceId: follower._id, type: 'follow' })
             await Promise.all([
                 follower.save(),
                 followed.save(),
