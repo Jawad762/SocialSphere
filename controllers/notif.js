@@ -1,4 +1,4 @@
-import Tweet from "../../client/src/components/Tweet.jsx";
+import Tweet from "../models/Tweet.js";
 import Notif from "../models/Notif.js";
 
 export const getNotifications = async (req, res, next) => {
