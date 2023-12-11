@@ -15,11 +15,10 @@ export const getNotifications = async (req, res, next) => {
           if (tweet) {
             return notif;
           }
-        } else if (notif.type === 'follow') {
-          return notif;
-        }
+          else return null
+        } 
   
-        return null;
+        return notif
       });
   
       const notifications = await Promise.all(notificationPromises);
