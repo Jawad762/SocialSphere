@@ -1,5 +1,5 @@
 import express from 'express'
-import { getNotifications } from '../controllers/notif'
+import { getNotifications } from '../controllers/notif.js'
 
 const router = express.Router()
 // get notifications

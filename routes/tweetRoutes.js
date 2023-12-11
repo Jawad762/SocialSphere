@@ -1,6 +1,5 @@
 import express from "express";
 import { createTweet, deleteTweet, getTweet, getTimelineTweets, getUserTweets, getExploreTweets, likeOrUnlikeTweet, getLikedTweets } from "../controllers/tweet.js";
-import { verifyToken } from "../verifyToken.js";
 const router = express.Router()
 
 
