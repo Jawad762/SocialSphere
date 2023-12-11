@@ -3,6 +3,7 @@ import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import tweetRoutes from './routes/tweetRoutes.js'
 import commentRoutes from './routes/commentRoutes.js'
+import notifRoutes from './routes/notifRoutes.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
@@ -32,6 +33,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/tweet', tweetRoutes)
 app.use('/api/comment', commentRoutes)
+app.use('/api/notification', notifRoutes)
 
 app.use((req, res, next) => {
     const allowedOrigins = ['https://socialsphere-z2m4.onrender.com', 'http://localhost:5173'];
